@@ -166,6 +166,14 @@ describe 'Craigslist' do
       end
     end
 
+    describe 'an initial call to neighborhoods' do
+      it 'should return a new instance with the expected value set' do
+        c = Craigslist.neighborhoods([123, 2])
+        c.should be_instance_of Craigslist::Persistable
+        c.neighborhoods.should == [123, 2]
+      end
+    end
+
     describe 'a correctly formatted block' do
       it 'should be evaluated and return a new instance with the expected values set' do
         c = Craigslist {
@@ -177,6 +185,7 @@ describe 'Craigslist' do
           search_type :T
           has_image true
           min_ask 100
+          neighborhoods [2, 3]
           bedrooms 4
           max_ask 200
         }
@@ -189,6 +198,7 @@ describe 'Craigslist' do
         c.search_type.should == :T
         c.has_image.should == 1
         c.min_ask.should == 100
+        c.neighborhoods == [2, 3]
         c.bedrooms == 4
         c.max_ask.should == 200
       end
@@ -287,6 +297,14 @@ describe 'Craigslist' do
         c = Craigslist.city(:seattle).max_ask(200)
         c.should be_instance_of Craigslist::Persistable
         c.max_ask.should == 200
+      end
+    end
+    
+    describe 'a chained call to neighborhoods' do
+      it 'should return a new instance with the expected value set' do
+        c = Craigslist.city(:seattle).neighborhoods([100, 200])
+        c.should be_instance_of Craigslist::Persistable
+        c.neighborhoods.should == [100, 200]
       end
     end
 

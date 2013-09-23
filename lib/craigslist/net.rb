@@ -7,7 +7,8 @@ module Craigslist
       min_ask: :minAsk,
       max_ask: :maxAsk,
       bedrooms: :bedrooms,
-      has_image: :hasPic
+      has_image: :hasPic,
+      neighborhoods: :nh
     }
 
     class << self

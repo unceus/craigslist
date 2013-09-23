@@ -10,7 +10,8 @@ module Craigslist
       min_ask: nil,
       max_ask: nil,
       bedrooms: nil,
-      has_image: false
+      has_image: false,
+      neighborhoods: nil
     }
 
     def initialize(*args, &block)
@@ -41,7 +42,8 @@ module Craigslist
         min_ask: @min_ask,
         max_ask: @max_ask,
         bedrooms: @bedrooms,
-        has_image: @has_image
+        has_image: @has_image,
+        neighborhoods: @neighborhoods
       }
 
       uri = Craigslist::Net::build_uri(@city, @county, @category_path, options)
@@ -186,6 +188,15 @@ module Craigslist
       self
     end
 
+    # @param neighborhoods [Array]
+    # @return [Craigslist::Persistable]
+    def neighborhoods=(neighborhoods)
+      raise ArgumentError, 'neighborhoods must be an array' unless
+        neighborhoods.nil? || neighborhoods.kind_of?(Array)
+      @neighborhoods = neighborhoods
+      self
+    end
+
     ##
     # Methods compatible with writing from block with instance_eval also serve
     # as simple reader methods. `Object` serves as the toggle between reader and
@@ -307,6 +318,17 @@ module Craigslist
         @bedrooms
       else
         self.bedrooms = bedrooms
+        self
+      end
+    end
+
+    # @param neighborhoods [Array]
+    # @return [Craigslist::Persistable, Array]
+    def neighborhoods(neighborhoods=Object)
+      if neighborhoods == Object
+        @neighborhoods
+      else
+        self.neighborhoods = neighborhoods
         self
       end
     end
