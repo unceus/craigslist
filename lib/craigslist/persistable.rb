@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'time'
 
 module Craigslist
   class Persistable
@@ -66,6 +67,16 @@ module Craigslist
             result['price'] = nil
           end
 
+          result['pid'] = node['pid'] || 123
+
+          if node['data-latitude']
+            result['latitude'] = node['data-latitude']
+          end
+
+          if node['data-longitude']
+            result['longitude'] = node['data-longitude']
+          end
+
           info = node.at_css('.l2 .pnr')
 
           if location = info.at_css('small')
@@ -74,6 +85,8 @@ module Craigslist
           else
             result['location'] = nil
           end
+
+          result['listed_at'] = Time.parse node.at_css('.date')
 
           attributes = info.at_css('.px').text
           result['has_img'] = attributes.include?('img') || attributes.include?('pic')
