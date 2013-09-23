@@ -170,6 +170,7 @@ describe 'Craigslist' do
       it 'should be evaluated and return a new instance with the expected values set' do
         c = Craigslist {
           city :seattle
+          county :sno
           category :apts_housing
           limit 200
           query 'test'
@@ -181,7 +182,8 @@ describe 'Craigslist' do
         }
         c.should be_instance_of Craigslist::Persistable
         c.city.should == :seattle
-        c.category_path.should == 'bia'
+        c.county.should == :sno
+        c.category_path.should == 'apa'
         c.limit.should == 200
         c.query.should == 'test'
         c.search_type.should == :T
@@ -208,6 +210,16 @@ describe 'Craigslist' do
           c = Craigslist.category(:bikes).seattle
           c.should be_instance_of Craigslist::Persistable
           c.city.should == :seattle
+        end
+      end
+    end
+
+    describe 'a chained call to county' do
+      context 'using writer methods' do
+        it 'should return the instance with the expected value set' do
+          c = Craigslist.category(:bikes).city(:seattle).county(:sno)
+          c.should be_instance_of Craigslist::Persistable
+          c.county.should == :sno
         end
       end
     end

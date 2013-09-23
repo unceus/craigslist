@@ -20,6 +20,14 @@ module Craigslist
         "http://#{city_path}.craigslist.org"
       end
 
+      # Returns the section of a craigslist uri that specifies the county, including the trailing slash
+      #
+      # @param county_path [String]
+      # @return [String]
+      def build_county_uri(county_path)
+        "#{county_path}/" unless county_path.nil?
+      end
+
       # Returns a Craigslist uri given city path, category path, options
       # including search, and offset
       #
@@ -28,14 +36,14 @@ module Craigslist
       # @param options [Hash]
       # @param offset [Integer]
       # @return [String]
-      def build_uri(city_path, category_path, options, offset=nil)
+      def build_uri(city_path, county_path, category_path, options, offset=nil)
 
         # Vary url if any of the search options are not set
         if options[:query].nil? && options[:min_ask].nil? &&
            options[:max_ask].nil? && options[:has_image] == 0
 
           # Use the non-search uri
-          uri = "#{build_city_uri(city_path)}/#{category_path}/"
+          uri = "#{build_city_uri(city_path)}/#{build_county_uri(county_path)}#{category_path}/"
 
           if offset && offset > 0
             uri = uri + "index#{offset}.html"
@@ -61,7 +69,7 @@ module Craigslist
 
           query_string = build_query(params)
 
-          uri = "#{build_city_uri(city_path)}/search/#{category_path}?" + query_string
+          uri = "#{build_city_uri(city_path)}/search/#{category_path}/#{build_county_uri(county_path)}?" + query_string
         end
       end
 
