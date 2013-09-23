@@ -9,6 +9,7 @@ module Craigslist
       search_type: :A,
       min_ask: nil,
       max_ask: nil,
+      bedrooms: nil,
       has_image: false
     }
 
@@ -39,6 +40,7 @@ module Craigslist
         search_type: @search_type,
         min_ask: @min_ask,
         max_ask: @max_ask,
+        bedrooms: @bedrooms,
         has_image: @has_image
       }
 
@@ -168,6 +170,15 @@ module Craigslist
       self
     end
 
+    # @param bedrooms [Integer]
+    # @return [Craigslist::Persistable]
+    def bedrooms=(bedrooms)
+      raise ArgumentError, 'bedrooms must be at least 0' unless
+        bedrooms.nil? || bedrooms >= 0
+      @bedrooms = bedrooms
+      self
+    end
+
     ##
     # Methods compatible with writing from block with instance_eval also serve
     # as simple reader methods. `Object` serves as the toggle between reader and
@@ -267,6 +278,17 @@ module Craigslist
         @max_ask
       else
         self.max_ask = max_ask
+        self
+      end
+    end
+
+    # @param bedrooms [Integer]
+    # @return [Craigslist::Persistable, Integer]
+    def bedrooms(bedrooms=Object)
+      if bedrooms == Object
+        @bedrooms
+      else
+        self.bedrooms = bedrooms
         self
       end
     end

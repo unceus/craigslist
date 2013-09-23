@@ -6,6 +6,7 @@ module Craigslist
       search_type: :searchType,
       min_ask: :minAsk,
       max_ask: :maxAsk,
+      bedrooms: :bedrooms,
       has_image: :hasPic
     }
 

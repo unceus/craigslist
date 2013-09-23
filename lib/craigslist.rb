@@ -10,7 +10,7 @@ module Craigslist
   extend Helpers
 
   INITIALIZING_METHODS = [
-    :city, :category, :query, :search_type, :limit, :has_image, :min_ask, :max_ask
+    :city, :category, :query, :search_type, :limit, :has_image, :min_ask, :max_ask, :bedrooms, :county
   ]
 
   class << self

@@ -150,6 +150,14 @@ describe 'Craigslist' do
       end
     end
 
+    describe 'an initial call to bedrooms' do
+      it 'should return a new instance with the expected value set' do
+        c = Craigslist.bedrooms(3)
+        c.should be_instance_of Craigslist::Persistable
+        c.bedrooms.should == 3
+      end
+    end
+
     describe 'an initial call to max_ask' do
       it 'should return a new instance with the expected value set' do
         c = Craigslist.max_ask(200)
@@ -162,12 +170,13 @@ describe 'Craigslist' do
       it 'should be evaluated and return a new instance with the expected values set' do
         c = Craigslist {
           city :seattle
-          category :bikes
+          category :apts_housing
           limit 200
           query 'test'
           search_type :T
           has_image true
           min_ask 100
+          bedrooms 4
           max_ask 200
         }
         c.should be_instance_of Craigslist::Persistable
@@ -178,6 +187,7 @@ describe 'Craigslist' do
         c.search_type.should == :T
         c.has_image.should == 1
         c.min_ask.should == 100
+        c.bedrooms == 4
         c.max_ask.should == 200
       end
     end
@@ -265,6 +275,14 @@ describe 'Craigslist' do
         c = Craigslist.city(:seattle).max_ask(200)
         c.should be_instance_of Craigslist::Persistable
         c.max_ask.should == 200
+      end
+    end
+
+    describe 'a chained call to bedrooms' do
+      it 'should return a new instance with the expected value set' do
+        c = Craigslist.city(:seattle).bedrooms(5)
+        c.should be_instance_of Craigslist::Persistable
+        c.bedrooms.should == 5
       end
     end
 
