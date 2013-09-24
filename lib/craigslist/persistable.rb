@@ -163,13 +163,11 @@ module Craigslist
       self
     end
 
-    # @param has_image [Integer]
+    # @param has_image [Boolean]
     # @return [Craigslist::Persistable]
     def has_image=(has_image)
       raise ArgumentError, 'has_image must be a boolean' unless
         has_image.is_a?(TrueClass) || has_image.is_a?(FalseClass)
-
-      # Store this value as an integer
       @has_image = has_image ? 1 : 0
       self
     end

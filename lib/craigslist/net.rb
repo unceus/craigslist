@@ -41,7 +41,9 @@ module Craigslist
 
         # Vary url if any of the search options are not set
         if options[:query].nil? && options[:min_ask].nil? &&
-           options[:max_ask].nil? && options[:has_image] == 0
+           options[:max_ask].nil? && 
+           (options[:has_image].nil? || options[:has_image].zero?) &&
+           options[:neighborhoods].nil? && options[:bedrooms].nil?
 
           # Use the non-search uri
           uri = "#{build_city_uri(city_path)}/#{build_county_uri(county_path)}#{category_path}/"
