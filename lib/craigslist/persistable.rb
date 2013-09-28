@@ -67,8 +67,6 @@ module Craigslist
             result['price'] = nil
           end
 
-          result['pid'] = node['pid'] || 123
-
           if node['data-latitude']
             result['latitude'] = node['data-latitude']
           end
