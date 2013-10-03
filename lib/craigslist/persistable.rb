@@ -47,54 +47,7 @@ module Craigslist
         neighborhoods: @neighborhoods
       }
 
-      uri = Craigslist::Net::build_uri(@city, @county, @category_path, options)
-      results = []
-
-      for i in 0..(([max_results - 1, -1].max) / 100)
-        uri = Craigslist::Net::build_uri(@city, @county, @category_path, options, i * 100) if i > 0
-        doc = Nokogiri::HTML(open(uri))
-
-        doc.css('p.row').each do |node|
-          result = {}
-
-          title = node.at_css('.pl a')
-          result['text'] = title.text.strip
-          result['href'] = title['href']
-
-          if price = node.at_css('.l2 .price')
-            result['price'] = price.text.strip
-          else
-            result['price'] = nil
-          end
-
-          if node['data-latitude']
-            result['latitude'] = node['data-latitude']
-          end
-
-          if node['data-longitude']
-            result['longitude'] = node['data-longitude']
-          end
-
-          info = node.at_css('.l2 .pnr')
-
-          if location = info.at_css('small')
-            # Remove brackets
-            result['location'] = location.text.strip[1..-2].strip
-          else
-            result['location'] = nil
-          end
-
-          result['listed_at'] = Time.parse node.at_css('.date')
-
-          attributes = info.at_css('.px').text
-          result['has_img'] = attributes.include?('img') || attributes.include?('pic')
-
-          results << result
-          break if results.length == max_results
-        end
-      end
-
-      results
+      Craigslist::Scrape::HTML::scrape_data_from_page get_uri_data, max_results, options
     end
 
     ##
@@ -391,6 +344,10 @@ module Craigslist
         var_name = "@#{k}".to_sym
         self.instance_variable_set(var_name, v)
       end
+    end
+
+    def get_uri_data
+      {city: @city, category_path: @category_path, county: @county}
     end
   end
 end
