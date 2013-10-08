@@ -31,7 +31,9 @@ module Craigslist::Scrape::HTML
         result['location'] = nil
       end
 
-      result['listed_at'] = Time.parse row.at_css('.date')
+      if listed_at = row.at_css('.date')
+        result['listed_at'] = listed_at
+      end
 
       attributes = info.at_css('.px').text
       result['has_img'] = attributes.include?('img') || attributes.include?('pic')
