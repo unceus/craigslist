@@ -357,5 +357,17 @@ describe 'Craigslist' do
         end
       end
     end
+    describe "#get_uris" do
+      it "should return an array with size of 1 if one or fewer pages is requested" do
+        res = Craigslist.city(:seattle).category(:bikes).limit(1).get_uris
+        res.should be_instance_of Array
+        res.length.should == 1
+      end
+      it "should return multiple results if there are multiple pages" do
+        res = Craigslist.city(:seattle).category(:bikes).limit(200).get_uris
+        res.should be_instance_of Array
+        res.length.should == 2
+      end
+    end
   end
 end

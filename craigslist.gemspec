@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.licenses = ['MIT']
   s.summary = %q{Unofficial Ruby DSL for programmatically accessing Craigslist listings.}
   s.description = s.summary
-  s.homepage = 'https://github.com/gregstallings/craigslist'
+  s.homepage = 'https://github.com/unceus/craigslist'
 
   s.authors = ['Greg Stallings']
   s.email = ['gregstallings@gmail.com']

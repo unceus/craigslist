@@ -123,6 +123,22 @@ c.fetch
 => [{}, ...10]
 ```
 
+### Fetching results
+Sometimes you might want to just get the URL that would get you the results page you want, in case you want to do your own processing on it. For example, you can append `.rss` to any Craigslist URL to get a RSS version.
+
+URL results are fetched in a similar manner to an object result:
+
+c = Craigslist do
+  city :seattle
+  category :bikes
+  limit 10
+end
+
+c.get_uris
+
+c.fetch
+=> ["http://seattle.cragsist.org/bik/...","http://seattle.cragsilist.org/bik/?page=2...",...]
+
 ## Installation
 
 Add this line to your Gemfile:

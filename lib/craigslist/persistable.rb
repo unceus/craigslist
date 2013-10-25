@@ -47,7 +47,31 @@ module Craigslist
         neighborhoods: @neighborhoods
       }
 
+      #Build uri only
+      #Craigslist::Net::build_uri(@city, @county, @category_path, options)
       Craigslist::Scrape::HTML::scrape_data_from_page get_uri_data, max_results, options
+    end
+
+    # Returns results for fetching
+    # Persistable
+    #
+    # @param max_results [Integer]
+    # @return [Array]
+    def get_uris(max_results=@limit)
+      raise InsufficientQueryAttributesError.new if
+        @city.nil? || @category_path.nil?
+
+      options = {
+        query: @query,
+        search_type: @search_type,
+        min_ask: @min_ask,
+        max_ask: @max_ask,
+        bedrooms: @bedrooms,
+        has_image: @has_image,
+        neighborhoods: @neighborhoods
+      }
+
+      Craigslist::Scrape::HTML::get_uris_for_fetch get_uri_data, max_results, options
     end
 
     ##
