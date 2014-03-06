@@ -53,7 +53,7 @@ module Craigslist::Scrape::HTML
       end
 
       if listed_at = row.at_css('.date')
-        result['listed_at'] = listed_at
+        result['listed_at'] = Date.parse listed_at
       end
 
       attributes = info.at_css('.px').text
