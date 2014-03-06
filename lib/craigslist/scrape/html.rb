@@ -58,6 +58,8 @@ module Craigslist::Scrape::HTML
 
       attributes = info.at_css('.px').text
       result['has_img'] = attributes.include?('img') || attributes.include?('pic')
+
+      result
     end
 
     def get_uri_for_fetch uri_data, options, page_number
