@@ -43,6 +43,10 @@ module Craigslist::Scrape::HTML
         result['longitude'] = row['data-longitude']
       end
 
+      if row['data-pid']
+        result['pid'] = row['data-pid']
+      end
+
       info = row.at_css('.l2 .pnr')
 
       if location = info.at_css('small')
