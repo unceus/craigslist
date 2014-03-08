@@ -6,7 +6,7 @@
 
 Unofficial Ruby interface for programmatically accessing Craigslist listings.
 
-Update: I am no longer maintaining this gem or accepting commits. If you would like to use this gem for research purposes, you will need to update it yourself.
+This gem contains improvements to gregstallings' original version.
 
 ## Usage
 
@@ -33,7 +33,7 @@ Craigslist.seattle.bikes
 => <Craigslist::Persistable @city=:seattle, @category_path="bia">
 
 # Any subsequent chained methods will override any previously set attributes
-c = Craiglist.seattle.bikes.limit(20).max_ask(200)
+c = Craigslist.seattle.bikes.limit(20).max_ask(200)
 => <Craigslist::Persistable
  @city=:seattle,
  @category_path="bia",
@@ -156,7 +156,7 @@ $ bundle
 Or install it yourself as:
 
 ```bash
-$ gem install craiglist
+$ gem install craigslist
 ```
 
 ## Documentation
