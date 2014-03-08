@@ -1,12 +1,6 @@
 # Craigslist Gem 
-[![Coverage Status](https://coveralls.io/repos/unceus/craigslist/badge.png?branch=master)][coveralls]
-
-[travis]: http://travis-ci.org/unceus/craigslist
-[coveralls]: https://coveralls.io/r/unceus/craigslist
 
 Unofficial Ruby interface for programmatically accessing Craigslist listings.
-
-Update: I am no longer maintaining this gem or accepting commits. If you would like to use this gem for research purposes, you will need to update it yourself.
 
 ## Usage
 
@@ -33,7 +27,7 @@ Craigslist.seattle.bikes
 => <Craigslist::Persistable @city=:seattle, @category_path="bia">
 
 # Any subsequent chained methods will override any previously set attributes
-c = Craiglist.seattle.bikes.limit(20).max_ask(200)
+c = Craigslist.seattle.bikes.limit(20).max_ask(200)
 => <Craigslist::Persistable
  @city=:seattle,
  @category_path="bia",
@@ -123,22 +117,6 @@ c.fetch
 => [{}, ...10]
 ```
 
-### Fetching results
-Sometimes you might want to just get the URL that would get you the results page you want, in case you want to do your own processing on it. For example, you can append `.rss` to any Craigslist URL to get a RSS version.
-
-URL results are fetched in a similar manner to an object result:
-
-c = Craigslist do
-  city :seattle
-  category :bikes
-  limit 10
-end
-
-c.get_uris
-
-c.fetch
-=> ["http://seattle.cragsist.org/bik/...","http://seattle.cragsilist.org/bik/?page=2...",...]
-
 ## Installation
 
 Add this line to your Gemfile:
@@ -167,10 +145,6 @@ $ gem install craiglist
 
 - Ruby 1.9.3
 - Ruby 2.0.0
-
-## Contributing
-
-Meaningful contributions will be accepted.
 
 ## Notice
 
