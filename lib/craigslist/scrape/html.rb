@@ -43,6 +43,10 @@ module Craigslist::Scrape::HTML
         result['longitude'] = row['data-longitude']
       end
 
+      if row['data-pid']
+        result['pid'] = row['data-pid']
+      end
+
       info = row.at_css('.l2 .pnr')
 
       if location = info.at_css('small')
@@ -53,11 +57,13 @@ module Craigslist::Scrape::HTML
       end
 
       if listed_at = row.at_css('.date')
-        result['listed_at'] = listed_at
+        result['listed_at'] = Date.parse listed_at
       end
 
       attributes = info.at_css('.px').text
       result['has_img'] = attributes.include?('img') || attributes.include?('pic')
+
+      result
     end
 
     def get_uri_for_fetch uri_data, options, page_number
