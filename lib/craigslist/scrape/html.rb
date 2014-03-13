@@ -29,9 +29,6 @@ module Craigslist::Scrape::HTML
       result['text'] = title.text.strip
       result['href'] = title['href']
 
-      date = row.at_css('.pl .date')
-      result['date'] = date.text.strip
-
       if price = row.at_css('.l2 .price')
         result['price'] = price.text.strip
       else
