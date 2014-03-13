@@ -3,7 +3,7 @@ module Craigslist
 
     OPTIONS_PARAMS_MAP = {
       query: :query,
-      search_type: :searchType,
+      search_type: :srchType,
       min_ask: :minAsk,
       max_ask: :maxAsk,
       bedrooms: :bedrooms,
